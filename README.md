@@ -18,6 +18,25 @@ HTML/CSS講習会では、実際にWebページを作成することを通して
 ## 1. HTML
 
 ### 1.1. Hello World!
+最初に「Hello, World!」という文字を表示する簡単なWebページを作成します。以下のコードをエディタに入力し、ブラウザで表示してみましょう！
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+</body>
+</html>
+```
+
+1. `<!DOCTYPE html>`: HTML5であることを宣言します。
+2. `<html>`: HTML文書のルート要素です。
+3. `<head>`: メタ情報（文字コードやタイトルなど）を記述します。
+4. `<body>`: 実際にブラウザに表示される内容を記述します。
+
+このコードをVS Codeの右下部にある`Go Live`をクリックするとWebページが作成され「Hello, World!」という文字が表示されます。
 
 ### 1.2. 見出しと段落
 
