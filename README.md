@@ -23,11 +23,14 @@ HTML/CSS講習会では、実際にWebページを作成することを通して
 ```html
 <!DOCTYPE html>
 <html>
+
 <head>
 </head>
+
 <body>
     <h1>Hello, World!</h1>
 </body>
+
 </html>
 ```
 
