@@ -128,6 +128,55 @@ HTML/CSS講習会では、実際にWebページを作成することを通して
 > ```
 
 ### 1.4. 画像
+#### 画像（`<img>`）
+画像をWebページに表示するには、`<img>`タグを使用します。画像のソース（ファイルパスまたはURL）を`src`属性に指定し、代替テキストを`alt`属性に記述します。
+
+```html
+<img src="https://www.example.com/image.jpg" alt="サンプル画像">
+```
+
+上記のコードをブラウザで表示すると、指定した画像が表示されます。`alt`属性は画像が表示されない場合に代わりに表示されるテキストで、アクセシビリティの向上にも役立ちます。
+
+#### 実際の例
+以下は画像を使用した例です：
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <h1>青山テック愛好会のロゴ</h1>
+    <img src="https://pbs.twimg.com/profile_images/1140908148884033537/5jgzP3xY_400x400.png" alt="青山テック愛好会のロゴ">
+</body>
+
+</html>
+```
+
+このコードをブラウザで表示すると、指定した画像がページに表示されます。
+
+> [!TIP]
+> 画像のサイズを調整したい場合は、`width`や`height`属性を使用します：
+> ```html
+> <img src="https://pbs.twimg.com/profile_images/1140908148884033537/5jgzP3xY_400x400.png" alt="青山テック愛好会のロゴ" width="200" height="100">
+> ```
+> または、CSSを使用してスタイルを指定することもできます：
+> ```html
+> <img src="https://pbs.twimg.com/profile_images/1140908148884033537/5jgzP3xY_400x400.png" alt="青山テック愛好会のロゴ" style="width: 200px; height: 100px;">
+> ```
+
+#### 画像のリンク化
+画像をクリックすると別のページに移動するようにするには、`<a>`タグで画像を囲みます：
+
+```html
+<a href="https://x.com/PiedPiper_AGU">
+    <img src="https://pbs.twimg.com/profile_images/1140908148884033537/5jgzP3xY_400x400.png" alt="青山テック愛好会のロゴ">
+</a>
+```
+
+このコードをブラウザで表示すると、画像がリンクとして機能します。
 
 ### 1.5. テキストの装飾
 
