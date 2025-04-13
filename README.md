@@ -139,19 +139,19 @@ HTMLの基本的な使い方を確認しながら、Todoリストを表示する
 > [!TIP]
 > 画像のサイズを調整したい場合は、`width`や`height`属性を使用します：
 > ```html
-> <img src="https://pbs.twimg.com/profile_images/1140908148884033537/5jgzP3xY_400x400.png" alt="青山テック愛好会のロゴ" width="200" height="100">
+> <img src="assets\TodoImg.png" alt="サンプル画像" width="200" height="100">
 > ```
 > または、CSSを使用してスタイルを指定することもできます：
 > ```html
-> <img src="https://pbs.twimg.com/profile_images/1140908148884033537/5jgzP3xY_400x400.png" alt="青山テック愛好会のロゴ" style="width: 200px; height: 100px;">
+> <img src="assets\TodoImg.png" alt="サンプル画像" style="width: 200px; height: 100px;">
 > ```
 
 #### 画像のリンク化
 画像をクリックすると別のページに移動するようにするには、`<a>`タグで画像を囲みます：
 
 ```html
-<a href="https://x.com/PiedPiper_AGU">
-    <img src="https://pbs.twimg.com/profile_images/1140908148884033537/5jgzP3xY_400x400.png" alt="青山テック愛好会のロゴ">
+<a href="https://www.example.com/">
+    <img src="assets\TodoImg.png" alt="サンプル画像">
 </a>
 ```
 
