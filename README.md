@@ -210,11 +210,91 @@ HTMLの基本的な使い方を確認しながら、Todoリストを表示する
 現在、ブラウザ上に次の写真のような画面が表示されていますか？
 <!-- 画像を追加 -->
 
-## 2. CSS
+## 2. 表の作成
 
-### 2.1. CSSの基本
+### 2.1. 表（`<table>`）
+HTMLの`<table>`要素は、データを行と列で構成された表形式で表示するために使用されます。表は、以下のような構造で記述されます：
 
-### 2.2. セレクタとプロパティ
+- `<table>`: 表全体を囲む要素。
+- `<tr>`: 表の行を定義する要素。
+- `<th>`: 表のヘッダーセルを定義する要素（通常は太字で中央揃え）。
+- `<td>`: 表のデータセルを定義する要素。
+
+#### 例
+以下は、簡単な表の例です：
+
+```html
+<table>
+    <tr>
+        <th>名前</th>
+        <th>年齢</th>
+        <th>職業</th>
+    </tr>
+    <tr>
+        <td>山田太郎</td>
+        <td>30</td>
+        <td>エンジニア</td>
+    </tr>
+    <tr>
+        <td>鈴木花子</td>
+        <td>25</td>
+        <td>デザイナー</td>
+    </tr>
+</table>
+```
+
+### 2.2. ボタンと関数
+`<button>`タブの`onclick`属性を使用することにより、ボタンがクリックされたら表が表示されるようにしましょう！
+
+### 2.2.1. イベントハンドリング
+イベントハンドリングとは、ユーザーが行う操作（クリック、キー入力、マウス移動など）やシステムからの通知（タイマーの終了、データの読み込み完了など）に応じて、特定の処理を実行する仕組みを指します。この章ではボタンがクリックされたときに表を表示します。  
+ボタンがクリックされたときに`AddPressed()`という関数を呼び出しましょう！
+
+```html
+<button id="addButton" onclick="AddPressed()">Add Task</button>
+```
+
+これで関数が呼び出されるはずですが、その処理を定義していないので書いていきましょう。  
+関数(function)のような`Javascript`のコードは`<script>`タグに記述していきます。
+
+```html
+<script>
+    function AddPressed(){
+        text = `<tr>\n` + 
+               `<td class="taskElement">タスク0</td>\n` + 
+               `<td><button onclick="deleteTask()">Delete</button></td>\n` + 
+               `</tr>\n`　+ 
+               `<tr>\n` + 
+               `<td class="taskElement">タスク1</td>\n` + 
+               `<td><button onclick="deleteTask()">Delete</button></td>\n` + 
+               `</tr>\n`
+               `<tr>\n` + 
+               `<td class="taskElement">タスク2</td>\n` + 
+               `<td><button onclick="deleteTask()">Delete</button></td>\n` + 
+               `</tr>`;
+        document.getElementById('result').innerHTML = text;
+    }
+</script>
+```
+関数の動作
+1. `text`変数の生成
+    - テーブルの行(`<tr>`)を複数生成するHTML文字列を作成しています。
+    - 各行には以下の要素が含まれます
+        - `<td class="taskElement">`: タスク名を表示するセル。例: "タスク0", "タスク1", "タスク2"。
+        - `<button onclick="deleteTask()">Delete</button>`: 各タスクを削除するためのボタン。クリックするとdeleteTask()関数が呼び出されるようになっています（ただし、この関数はまだ定義されていません）。
+2. `document.getElementById('result').innerHTML = text;`
+    - HTML内の`class="result"`を持つ要素を取得し、その中身を変数`text`で上書きします。
+
+`document.getElementById('result')`を使用していますが、HTML内に`class="result"`を持つ要素が存在しないので表が画面に表示されません。以下の要素をHTMLに追加しましょう。
+
+```html
+<table class="result">
+    <!-- Tasks will be added here -->
+</table>
+```
+
+
+### 2.2.2. DOM操作
 
 ### 2.3. 色と背景
 
