@@ -169,11 +169,11 @@ HTMLの基本的な使い方を確認しながら、Todoリストを表示する
 フォームの入力要素を使用して、ユーザーからデータを取得する方法を学びます。以下の例では、テキスト入力フィールドを作成します。
 
 ```html
-<input id="username" type="text" placeholder="ユーザー名を入力してください">
+<input class="username" type="text" placeholder="ユーザー名を入力してください">
 ```
 
 - `<input>`: ユーザーがデータを入力するためのフィールドです。
-  - `id`: 入力フィールドを識別するための属性です。
+  - `class`: HTML要素に分類名（種類）を設定するための属性です。
   - `type`: 入力フィールドにどのような型を受け付けるのか指定します。
   - `placeholder`: 入力フィールド内に表示される初期テキストを指定します。
 
@@ -251,7 +251,7 @@ HTMLの`<table>`要素は、データを行と列で構成された表形式で�
 ボタンがクリックされたときに`AddPressed()`という関数を呼び出しましょう！
 
 ```html
-<button id="addButton" onclick="AddPressed()">Add Task</button>
+<button class="addButton" onclick="AddPressed()">Add Task</button>
 ```
 
 これで関数が呼び出されるはずですが、その処理を定義していないので書いていきましょう。  
