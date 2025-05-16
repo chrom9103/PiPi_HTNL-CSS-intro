@@ -164,7 +164,8 @@ HTMLの基本的な使い方を確認しながら、Todoリストを表示する
 現在、ブラウザ上に次の写真のような画面が表示されていますか？
 <!-- 画像を追加 -->
 
-### 2.1. 表（`<table>`）
+### 1.5. 表（`<table>`）
+
 HTMLの`<table>`要素は、データを行と列で構成された表形式で表示するために使用されます。表は、以下のような構造で記述されます：
 
 - `<table>`: 表全体を囲む要素。
@@ -197,59 +198,30 @@ HTMLの`<table>`要素は、データを行と列で構成された表形式で�
 
 ## 2. 文字の装飾
 
+### 2.1. CSSで装飾してみよう
 
-### 2.2. ボタンと関数
-`<button>`タブの`onclick`属性を使用することにより、ボタンがクリックされたら表が表示されるようにしましょう！
+#### 2.1.1.
+CSSを使って文字や背景などを装飾するためにCSSファイルを作成します。
+HTMLファイルと同じディレクトリ内に `style.css` を作成します。
 
-### 2.2.1. イベントハンドリング
-イベントハンドリングとは、ユーザーが行う操作（クリック、キー入力、マウス移動など）やシステムからの通知（タイマーの終了、データの読み込み完了など）に応じて、特定の処理を実行する仕組みを指します。この章ではボタンがクリックされたときに表を表示します。  
-ボタンがクリックされたときに`AddPressed()`という関数を呼び出しましょう！
-
-```html
-<button id="addButton" onclick="AddPressed()">Add Task</button>
+```
+現在のディレクトリ構造
+|
+|-images
+|-index.html
+|-style.css
 ```
 
-これで関数が呼び出されるはずですが、その処理を定義していないので書いていきましょう。  
-関数(function)のような`Javascript`のコードは`<script>`タグに記述していきます。
+このようになっていれば問題ありません。
 
-```html
-<script>
-    function AddPressed(){
-        text = `<tr>\n` + 
-               `<td class="taskElement">タスク0</td>\n` + 
-               `<td><button onclick="deleteTask()">Delete</button></td>\n` + 
-               `</tr>\n`　+ 
-               `<tr>\n` + 
-               `<td class="taskElement">タスク1</td>\n` + 
-               `<td><button onclick="deleteTask()">Delete</button></td>\n` + 
-               `</tr>\n`
-               `<tr>\n` + 
-               `<td class="taskElement">タスク2</td>\n` + 
-               `<td><button onclick="deleteTask()">Delete</button></td>\n` + 
-               `</tr>`;
-        document.getElementById('result').innerHTML = text;
-    }
-</script>
+#### 2.1.2.
+HTMLファイルの `<head>` の中を以下のように書き加えます。
+
 ```
-関数の動作
-1. `text`変数の生成
-    - テーブルの行(`<tr>`)を複数生成するHTML文字列を作成しています。
-    - 各行には以下の要素が含まれます
-        - `<td class="taskElement">`: タスク名を表示するセル。例: "タスク0", "タスク1", "タスク2"。
-        - `<button onclick="deleteTask()">Delete</button>`: 各タスクを削除するためのボタン。クリックするとdeleteTask()関数が呼び出されるようになっています（ただし、この関数はまだ定義されていません）。
-2. `document.getElementById('result').innerHTML = text;`
-    - HTML内の`class="result"`を持つ要素を取得し、その中身を変数`text`で上書きします。
-
-`document.getElementById('result')`を使用していますが、HTML内に`class="result"`を持つ要素が存在しないので表が画面に表示されません。以下の要素をHTMLに追加しましょう。
-
-```html
-<table class="result">
-    <!-- Tasks will be added here -->
-</table>
+コード未準備
 ```
 
-
-### 2.2.2. DOM操作
+### 2.2. classとid
 
 ### 2.3. 色と背景
 
@@ -315,9 +287,61 @@ HTMLの`<table>`要素は、データを行と列で構成された表形式で�
 <!-- 画像を追加 -->
 
 
+### 3.1.3. ボタンと関数
+`<button>`タブの`onclick`属性を使用することにより、ボタンがクリックされたら表が表示されるようにしましょう！
+
+### 3.1.4. イベントハンドリング
+イベントハンドリングとは、ユーザーが行う操作（クリック、キー入力、マウス移動など）やシステムからの通知（タイマーの終了、データの読み込み完了など）に応じて、特定の処理を実行する仕組みを指します。この章ではボタンがクリックされたときに表を表示します。  
+ボタンがクリックされたときに`AddPressed()`という関数を呼び出しましょう！
+
+```html
+<button id="addButton" onclick="AddPressed()">Add Task</button>
+```
+
+これで関数が呼び出されるはずですが、その処理を定義していないので書いていきましょう。  
+関数(function)のような`Javascript`のコードは`<script>`タグに記述していきます。
+
+```html
+<script>
+    function AddPressed(){
+        text = `<tr>\n` + 
+               `<td class="taskElement">タスク0</td>\n` + 
+               `<td><button onclick="deleteTask()">Delete</button></td>\n` + 
+               `</tr>\n`　+ 
+               `<tr>\n` + 
+               `<td class="taskElement">タスク1</td>\n` + 
+               `<td><button onclick="deleteTask()">Delete</button></td>\n` + 
+               `</tr>\n`
+               `<tr>\n` + 
+               `<td class="taskElement">タスク2</td>\n` + 
+               `<td><button onclick="deleteTask()">Delete</button></td>\n` + 
+               `</tr>`;
+        document.getElementById('result').innerHTML = text;
+    }
+</script>
+```
+関数の動作
+1. `text`変数の生成
+    - テーブルの行(`<tr>`)を複数生成するHTML文字列を作成しています。
+    - 各行には以下の要素が含まれます
+        - `<td class="taskElement">`: タスク名を表示するセル。例: "タスク0", "タスク1", "タスク2"。
+        - `<button onclick="deleteTask()">Delete</button>`: 各タスクを削除するためのボタン。クリックするとdeleteTask()関数が呼び出されるようになっています（ただし、この関数はまだ定義されていません）。
+2. `document.getElementById('result').innerHTML = text;`
+    - HTML内の`class="result"`を持つ要素を取得し、その中身を変数`text`で上書きします。
+
+`document.getElementById('result')`を使用していますが、HTML内に`class="result"`を持つ要素が存在しないので表が画面に表示されません。以下の要素をHTMLに追加しましょう。
+
+```html
+<table class="result">
+    <!-- Tasks will be added here -->
+</table>
+```
+
+
 ### 3.2. DOM操作
 
 ### 3.3. フォーム
+
 
 
 ## 4. 演習問題
