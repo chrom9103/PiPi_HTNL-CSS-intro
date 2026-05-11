@@ -374,124 +374,313 @@ color:#5f9440;
 }
 ```
 
-### 2.4. レイアウト
-CSSの魅力はただの装飾だけではありません。レイアウトの調整も行うことができます。
-#### 2.4.1. ボックスレイアウト
+### 2.4. レイアウトの基本
+CSSの役割は色を変えることだけではありません。要素の位置、余白、幅を整えることで、情報が読みやすい画面を作れます。ここでは、todo アプリの土台になるレイアウトの考え方を学びます。
 
+#### 2.4.1. ボックスモデル
+HTMLの要素は、見た目の上ではすべて四角い箱として扱われます。この箱は主に次の4つで構成されます。
 
-### 2.5. フレックスボックス
+- `content`: 文字や画像そのもの
+- `padding`: 内容と枠の間の余白
+- `border`: 枠線
+- `margin`: 他の要素との外側の余白
 
-### 2.6. グリッドレイアウト
-
-### 2.7. メディアクエリ
-
-
-## 3. JavaScript
-
-### 3.1. イベントハンドリング
-
-### 3.1.1 フォーム（`<input>`）
-
-フォームの入力要素を使用して、ユーザーからデータを取得する方法を学びます。以下の例では、テキスト入力フィールドを作成します。
+たとえば、todo アプリのカード部分は次のように考えられます。
 
 ```html
-<input id="username" type="text" placeholder="ユーザー名を入力してください">
+<div id="todo-list">
+  <h2>Todo List</h2>
+</div>
 ```
 
-- `<input>`: ユーザーがデータを入力するためのフィールドです。
-  - `id`: 入力フィールドを識別するための属性です。
-  - `type`: 入力フィールドにどのような型を受け付けるのか指定します。
-  - `placeholder`: 入力フィールド内に表示される初期テキストを指定します。
+```css
+#todo-list {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px auto;
+}
+```
 
-> [!TIP]
-> 他の入力タイプも試してみましょう：
-> ```html
-> <input type="date" placeholder="日付を選択">
-> <input type="file" placeholder="ファイルを選択">
-> <input type="radio" placeholder="ラジオボタン">
-> ```
+このように書くと、白いカードの中に余白ができ、画面の中央に置きやすくなります。
 
-### 3.1.2. ボタン（`<button>`）
+#### 2.4.2. 幅と中央寄せ
+画面全体に対して要素を中央に置きたいときは、幅と余白を一緒に考えます。`margin: 0 auto;` を使うと、横方向の中央寄せができます。
 
-ボタンは、ユーザーがクリックして特定のアクションを実行するための要素です。
+```css
+#todo-list {
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+```
+
+`width` で大きさの目安を決め、`max-width` で広がりすぎを防ぎます。これだけでも、スマホでも見やすく、パソコンでも間延びしにくいレイアウトになります。
+
+#### 2.4.3. まずは全体の骨組みを作る
+todo アプリでは、上から順にヘッダー、画像、入力欄、一覧の順で情報を並べます。HTMLで構造を作り、CSSで見た目を整える流れを意識してください。
+
+この時点でできることは次の3つです。
+
+1. 画面の中心にカードを置ける。
+2. 余白を使って要素同士の距離を調整できる。
+3. どの部分が入力欄で、どの部分が一覧かを分けて考えられる。
+
+### 2.5. フレックスボックスで入力欄を並べる
+todo アプリでは、テキスト入力欄と追加ボタンを横に並べると使いやすくなります。そのために便利なのが Flexbox です。
+
+#### 2.5.1. 横並びにする
+次のように親要素に `display: flex;` を指定すると、子要素が横方向に並びます。
 
 ```html
-<button>クリックしてください</button>
+<div class="input-area">
+  <input id="newTask" type="text" placeholder="Enter a new task">
+  <button id="addButton">Add Task</button>
+</div>
 ```
 
-このコードをブラウザで表示すると、「クリックしてください」というボタンが表示されます。
+```css
+.input-area {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+```
 
-#### ボタンの属性
-ボタンにはさまざまな属性を設定できます。HTML/CSS講習会では以下の属性を使用します。
+`gap` は要素同士の間隔です。`margin` を個別に調整しなくても、きれいな隙間を作れます。
 
-- `onclick`: ボタンがクリックされたときに実行されるJavaScriptコードを指定します。
+#### 2.5.2. 入力欄を広げる
+入力欄は、ボタンよりも広く取ると入力しやすくなります。
+
+```css
+#newTask {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+```
+
+`flex: 1;` を指定すると、余ったスペースを入力欄が優先して使います。これで、画面幅が変わっても自然な見た目になります。
+
+#### 2.5.3. ボタンの見た目を整える
+追加ボタンは、単に押せるだけでなく、押したくなる見た目にすると操作がわかりやすくなります。
+
+```css
+#addButton {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#addButton:hover {
+  background-color: #0056b3;
+}
+```
+
+`hover` を使うと、マウスが重なったときだけ少し色を変えられます。これにより、クリックできる要素だと伝わりやすくなります。
+
+### 2.6. 一覧を見やすくする
+次は、追加したタスクを一覧として表示する部分を整えます。todo アプリでは、タスク名と削除ボタンを行ごとに並べるので、表の考え方が役立ちます。
+
+#### 2.6.1. 表の基本
+表は、行と列で情報を整理するための要素です。タスク一覧では、左側にタスク名、右側に削除ボタンを置くとわかりやすくなります。
 
 ```html
-<button onclick="alert('ボタンがクリックされました！')">アラートを表示</button>
+<table id="result">
+  <tr>
+    <td class="taskElement">買い物に行く</td>
+    <td><button class="delete-btn">Delete</button></td>
+  </tr>
+</table>
 ```
 
-このコードをブラウザで表示すると、名前を入力するフィールドと「送信」ボタンが表示されます。
+#### 2.6.2. 行ごとの区切りを付ける
+一覧が増えても見やすいように、行の下に線を引きます。
 
-#### 実装例
-現在、ブラウザ上に次の写真のような画面が表示されていますか？
-<!-- 画像を追加 -->
+```css
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr {
+  border-bottom: 1px solid #ddd;
+}
+
+td {
+  padding: 10px;
+}
+```
+
+`border-collapse` は、表の枠線をすっきり見せるために使います。
+
+#### 2.6.3. 同じ見た目をそろえる
+同じ役割を持つ要素には、同じ class を付けると管理しやすくなります。複数のタスク名は全部同じ見た目でよいので、class を使うのが自然です。
+
+この時点でできることは次の3つです。
+
+1. タスク一覧を表として表示できる。
+2. 行ごとに見やすい区切りを付けられる。
+3. 追加ボタンと削除ボタンの役割を分けて考えられる。
+
+### 2.7. メディアクエリで崩れにくくする
+画面サイズが小さくなると、横並びの要素が窮屈になることがあります。そんなときはメディアクエリを使って、画面幅に応じてレイアウトを切り替えます。
+
+#### 2.7.1. スマホ幅を想定する
+たとえば、画面が狭いときは入力欄とボタンを縦に並べると押しやすくなります。
+
+```css
+@media (max-width: 600px) {
+  .input-area {
+    flex-direction: column;
+  }
+
+  #addButton {
+    width: 100%;
+  }
+}
+```
+
+#### 2.7.2. 画像やカードの幅を調整する
+画像やカードの幅を固定しすぎると、スマホでははみ出してしまいます。`width: 100%;` や `max-width` を使って、画面に合わせて縮むようにしておきましょう。
+
+この時点でできることは次の2つです。
+
+1. 画面の大きさに応じて入力欄の並びを切り替えられる。
+2. 小さい画面でもアプリが使いやすいまま保てる。
 
 
-### 3.1.3. ボタンと関数
-`<button>`タブの`onclick`属性を使用することにより、ボタンがクリックされたら表が表示されるようにしましょう！
+## 3. JavaScriptでtodoを動かす
+ここからは、見た目だけのページを「動くアプリ」に変えていきます。JavaScript を使うと、ボタンを押したときに処理を実行したり、入力された文字を保存したりできます。
 
-### 3.1.4. イベントハンドリング
-イベントハンドリングとは、ユーザーが行う操作（クリック、キー入力、マウス移動など）やシステムからの通知（タイマーの終了、データの読み込み完了など）に応じて、特定の処理を実行する仕組みを指します。この章ではボタンがクリックされたときに表を表示します。
-ボタンがクリックされたときに`AddPressed()`という関数を呼び出しましょう！
+### 3.1. ボタンで関数を呼び出す
+まずは、ボタンを押したら JavaScript の関数が実行されるようにします。
 
 ```html
 <button id="addButton" onclick="AddPressed()">Add Task</button>
 ```
 
-これで関数が呼び出されるはずですが、その処理を定義していないので書いていきましょう。
-関数(function)のような`Javascript`のコードは`<script>`タグに記述していきます。
+`onclick` は、クリックされたときに実行する処理を指定する属性です。ここでは `AddPressed()` という関数を呼びます。
+
+#### 3.1.1. 関数を書く
+JavaScript の処理は `<script>` タグの中に書きます。
 
 ```html
 <script>
-    function AddPressed(){
-        text = `<tr>\n` + 
-               `<td class="taskElement">タスク0</td>\n` + 
-               `<td><button onclick="deleteTask()">Delete</button></td>\n` + 
-               `</tr>\n`　+ 
-               `<tr>\n` + 
-               `<td class="taskElement">タスク1</td>\n` + 
-               `<td><button onclick="deleteTask()">Delete</button></td>\n` + 
-               `</tr>\n` +
-               `<tr>\n` + 
-               `<td class="taskElement">タスク2</td>\n` + 
-               `<td><button onclick="deleteTask()">Delete</button></td>\n` + 
-               `</tr>`;
-        document.getElementById('result').innerHTML = text;
-    }
+  function AddPressed() {
+    alert('ボタンが押されました');
+  }
 </script>
 ```
-関数の動作
-1. `text`変数の生成
-    - テーブルの行(`<tr>`)を複数生成するHTML文字列を作成しています。
-    - 各行には以下の要素が含まれます
-        - `<td class="taskElement">`: タスク名を表示するセル。例: "タスク0", "タスク1", "タスク2"。
-        - `<button onclick="deleteTask()">Delete</button>`: 各タスクを削除するためのボタン。クリックするとdeleteTask()関数が呼び出されるようになっています（ただし、この関数はまだ定義されていません）。
-2. `document.getElementById('result').innerHTML = text;`
-    - HTML内の`class="result"`を持つ要素を取得し、その中身を変数`text`で上書きします。
 
-`document.getElementById('result')`を使用していますが、HTML内に`class="result"`を持つ要素が存在しないので表が画面に表示されません。以下の要素をHTMLに追加しましょう。
+最初は、押されたことがわかるだけの簡単な処理で十分です。ボタンと関数がつながっていることを確認しましょう。
+
+### 3.2. 入力欄の値を取得する
+次は、入力欄に打ち込んだ文字を取り出します。
 
 ```html
-<table id="result">
-    <!-- Tasks will be added here -->
-</table>
+<input id="newTask" type="text" placeholder="Enter a new task">
 ```
 
+```javascript
+const newTask = document.getElementById('newTask');
+const value = newTask.value;
+```
 
-### 3.2. DOM操作
+`document.getElementById` は、指定した `id` を持つ要素を取得するための命令です。`value` を使うと、入力欄の中身を読めます。
 
-### 3.3. フォーム
+### 3.3. 配列にタスクをためる
+入力された文字は、1 件ずつ配列に保存すると扱いやすくなります。配列は、複数のデータを順番にまとめて持てる入れ物です。
 
+```javascript
+let tasks = [];
 
+function AddPressed() {
+  const newTask = document.getElementById('newTask');
+  tasks.push(newTask.value);
+}
+```
 
-## 4. 演習問題
+`push` を使うと、配列の最後に新しい要素を追加できます。todo アプリでは、ここに入力したタスクを1件ずつ保存していきます。
+
+#### 3.3.1. 空欄を追加しない
+何も入力されていないときは、配列に入れないようにしておくと親切です。
+
+```javascript
+if (newTask.value === '') {
+  return;
+}
+```
+
+### 3.4. 画面を描き直す
+配列にデータを入れただけでは、画面には変化が出ません。そこで、配列の内容を HTML に変換して表示し直します。この処理を描画、または再描画と呼びます。
+
+```javascript
+function draw() {
+  let result = '';
+
+  for (let i = 0; i < tasks.length; i++) {
+    result += "<tr>\n" + 
+              `<td id="taskElement">${tasks[i]}</td>\n` + 
+              `<td><button onclick="deleteTask(${i})">Delete</button></td>\n` + 
+              "</tr>";
+  }
+
+  document.getElementById('result').innerHTML = result;
+}
+```
+
+#### 3.4.1. innerHTML を使う
+`innerHTML` は、要素の中身をまとめて書き換えるための仕組みです。配列の中身に応じて表の行を作り直すと、画面に最新の状態を表示できます。
+
+#### 3.4.2. 追加したら描画する
+タスクを配列に追加したあとで `draw()` を呼ぶと、すぐに一覧へ反映されます。
+
+```javascript
+function AddPressed() {
+  const newTask = document.getElementById('newTask');
+  if (newTask.value === '') {
+    return;
+  }
+
+  tasks.push(newTask.value);
+  newTask.value = '';
+  draw();
+}
+```
+
+### 3.5. タスクを削除する
+一覧に削除ボタンを付けて、押された行だけ消せるようにします。
+
+```javascript
+function deleteTask(index) {
+  tasks.splice(index, 1);
+  draw();
+}
+```
+
+`splice` は、配列の指定した位置から要素を取り除くための命令です。削除したあとに `draw()` を呼び直すことで、画面の表示も更新されます。
+
+### 3.6. 完成形の考え方
+ここまでの流れをまとめると、todo アプリは次の順で動いています。
+
+1. 入力欄に文字を入れる。
+2. ボタンを押して関数を呼ぶ。
+3. 文字を配列に追加する。
+4. 配列から表を描き直す。
+5. 削除ボタンで配列から要素を消す。
+
+この流れを理解できると、単なる例題ではなく、自分で機能を足していけるアプリになります。
+
+### 3.7. 完成イメージ
+最終的には、`lectures/2025/chrom/index.html` を開くと、入力欄と追加ボタンがあり、タスクを追加・削除できる簡易 todo アプリが表示されます。
+
+この時点でできることは次の3つです。
+
+1. 入力した文字を保存できる。
+2. 画面を最新の状態に描き直せる。
+3. いらないタスクを削除できる。
